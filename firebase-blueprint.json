@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0.0",
+  "entities": {
+    "UserProfile": {
+      "collection": "users",
+      "path": "users/{userId}",
+      "fields": {
+        "userId": { "type": "string", "required": true },
+        "displayName": { "type": "string", "required": true },
+        "email": { "type": "string", "required": true },
+        "photoUrl": { "type": "string", "required": false },
+        "createdAt": { "type": "timestamp", "required": false },
+        "updatedAt": { "type": "timestamp", "required": false }
+      }
+    },
+    "UserBookmark": {
+      "collection": "bookmarks",
+      "path": "users/{userId}/bookmarks/{bookmarkId}",
+      "fields": {
+        "id": { "type": "string", "required": true },
+        "userId": { "type": "string", "required": true },
+        "mediaId": { "type": "string", "required": true },
+        "title": { "type": "string", "required": true },
+        "poster": { "type": "string", "required": false },
+        "type": { "type": "string", "required": true },
+        "releaseYear": { "type": "string", "required": false },
+        "rating": { "type": "string", "required": false },
+        "createdAt": { "type": "timestamp", "required": false }
+      }
+    },
+    "UserHistory": {
+      "collection": "history",
+      "path": "users/{userId}/history/{mediaId}",
+      "fields": {
+        "mediaId": { "type": "string", "required": true },
+        "userId": { "type": "string", "required": true },
+        "title": { "type": "string", "required": true },
+        "poster": { "type": "string", "required": false },
+        "type": { "type": "string", "required": true },
+        "positionMs": { "type": "number", "required": true },
+        "durationMs": { "type": "number", "required": true },
+        "season": { "type": "number", "required": false },
+        "episode": { "type": "number", "required": false },
+        "lastWatchedAt": { "type": "timestamp", "required": false }
+      }
+    },
+    "UserAddon": {
+      "collection": "addons",
+      "path": "users/{userId}/addons/{addonId}",
+      "fields": {
+        "addonId": { "type": "string", "required": true },
+        "userId": { "type": "string", "required": true },
+        "name": { "type": "string", "required": true },
+        "transportUrl": { "type": "string", "required": true },
+        "isEnabled": { "type": "boolean", "required": true },
+        "installedAt": { "type": "timestamp", "required": false }
+      }
+    }
+  }
+}

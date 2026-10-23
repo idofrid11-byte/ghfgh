@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create, update: if isOwner(userId)
+        && request.resource.data.userId == userId
+        && request.resource.data.displayName is string
+        && request.resource.data.email is string;
+      allow delete: if isOwner(userId);
+
+      match /bookmarks/{bookmarkId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId)
+          && request.resource.data.userId == userId
+          && request.resource.data.mediaId is string
+          && request.resource.data.title is string
+          && request.resource.data.type is string;
+        allow delete: if isOwner(userId);
+      }
+
+      match /history/{mediaId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId)
+          && request.resource.data.userId == userId
+          && request.resource.data.mediaId is string
+          && request.resource.data.title is string
+          && request.resource.data.positionMs is number
+          && request.resource.data.durationMs is number;
+        allow delete: if isOwner(userId);
+      }
+
+      match /addons/{addonId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId)
+          && request.resource.data.userId == userId
+          && request.resource.data.addonId is string
+          && request.resource.data.name is string
+          && request.resource.data.transportUrl is string
+          && request.resource.data.isEnabled is bool;
+        allow delete: if isOwner(userId);
+      }
+    }
+  }
+}

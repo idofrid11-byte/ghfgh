@@ -1,0 +1,6 @@
+{
+  "name": "NovaStream",
+  "description": "Decentralized media streaming platform with community addon repository, stream resolver, and playback engine.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
